@@ -1,0 +1,1 @@
+﻿Invoke-Expression "& `".\choco.ps1`" -install 1 -script_name $($MyInvocation.MyCommand.Name) $args"
