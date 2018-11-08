@@ -17,6 +17,12 @@ function warn {
     exit 1
   }
 }
+$line = "-" * $script_name.Length
+Write-Host @"
++${line}+
+¦${script_name}¦
++${line}+
+"@
 $mode = If ($install -eq $True) {"install"} Else {"uninstall"}
 $count = $pkgs.count
 if ($count -eq 0) {
