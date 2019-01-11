@@ -17,10 +17,10 @@ function warn {
     exit 1
   }
 }
-$line = "-" * $script_name.Length
+$line = "-" * ($script_name.Length + 2)
 Write-Host @"
 +${line}+
-¦${script_name}¦
+¦ ${script_name} ¦
 +${line}+
 "@
 $mode = If ($install -eq $True) {"install"} Else {"uninstall"}
