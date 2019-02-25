@@ -1,4 +1,21 @@
-﻿[CmdletBinding()]
+﻿<#
+.SYNOPSIS
+
+Backend for chocolatey wrapper scripts.
+
+.PARAMETER install
+
+Specifies the mode (install/uninstall).
+
+.PARAMETER script_name
+
+Filename of wrapper script which called the backend.
+
+.PARAMETER pkgs
+
+Package(s) to install/uninstall.
+#>
+[CmdletBinding()]
 Param(
   [Parameter(Mandatory=$True,Position=0)]
   [bool]$install,
@@ -16,6 +33,9 @@ function warn {
   if ($fatal -eq $True) {
     exit 1
   }
+}
+if ($env:Choco_Clear -eq $True) {
+  Clear-Host
 }
 $line = "-" * ($script_name.Length + 2)
 Write-Host @"
