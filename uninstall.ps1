@@ -15,4 +15,4 @@ $env:Choco_Clear = $True
 
 $env:Choco_Clear = $False
 #>
-Invoke-Expression "& `".\choco.ps1`" -install 0 -script_name $($MyInvocation.MyCommand.Name) $args"
+Invoke-Expression "& `"$(Split-Path $MyInvocation.MyCommand.Path -Parent)\choco.ps1`" -install 0 -script_name $($MyInvocation.MyCommand.Name) $args"
