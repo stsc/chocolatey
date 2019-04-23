@@ -1,0 +1,12 @@
+chocolatey wrapper scripts
+==========================
+Chocolatey[1] is a package manager for Windows.  The intended
+purpose of these wrapper scripts here is to simplify building/
+installing or uninstalling local self-made chocolatey packages.
+
+The scripts are written in the Powershell language.  Currently,
+there is a backend and some frontend scripts.  The frontend
+scripts are invoked in order to build/install or uninstall
+packages (carried out effectively by the backend).
+
+1: https://chocolatey.org/
