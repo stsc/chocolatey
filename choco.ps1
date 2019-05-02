@@ -29,7 +29,7 @@ Param(
 )
 function warn {
   Param([string]$msg,[bool]$fatal)
-  echo "${script_name}: $msg"
+  Write-Output "${script_name}: $msg"
   if ($fatal -eq $True) {
     exit 1
   }
@@ -37,7 +37,7 @@ function warn {
 function print_box {
   Param([string]$text)
   $line = "-" * ($text.Length + 2)
-  Write-Host @"
+  Write-Output @"
 +${line}+
 ¦ ${text} ¦
 +${line}+
@@ -47,7 +47,7 @@ function print_state {
   Param([string]$var,[string]$val)
   $state = "$var = "
   $state += If ($val -eq $True) {'$True'} Else {'$False'}
-  echo $state
+  Write-Output $state
 }
 function print_init {
   $mode = If ($install -eq $True) {"install"} Else {"uninstall"}
@@ -56,7 +56,7 @@ function print_init {
     warn -msg "no package(s)" -fatal $True
   }
   $suffix = If ($count -gt 1) {"s"} Else {""}
-  echo "Going to $mode $count package${suffix}..."
+  Write-Output "Going to $mode $count package${suffix}..."
 }
 function process_pkgs {
   foreach ($pkg in $pkgs) {
@@ -64,37 +64,37 @@ function process_pkgs {
       warn -msg "'$pkg' is not a directory" -fatal $False
       continue
     }
-    echo $pkg.ToUpper()
+    Write-Output $pkg.ToUpper()
     $bar = "*" * $pkg.Length
-    echo $bar
+    Write-Output $bar
     $pwd = pwd
-    echo "Changing current working directory..."
+    Write-Output "Changing current working directory..."
     cd $pkg 2>$null
     if ($? -eq $False) {
       warn -msg "cannot cd to '$pkg'" -fatal $True
     }
     if ($install -eq $True) {
-      Write-Host @"
+      Write-Output @"
 choco pack
 ==========
 "@
       choco pack
-      echo "----------"
-      Write-Host @"
+      Write-Output "----------"
+      Write-Output @"
 choco install
 =============
 "@
       choco install $pkg -s . -my
-      echo "-------------"
+      Write-Output "-------------"
     } else {
-      Write-Host @"
+      Write-Output @"
 choco uninstall
 ===============
 "@
       choco uninstall $pkg -s . -my
-      echo "---------------"
+      Write-Output "---------------"
     }
-    echo "Restoring current working directory..."
+    Write-Output "Restoring current working directory..."
     cd $pwd 2>$null
     if ($? -eq $False) {
       warn -msg "cannot cd to '$pwd'" -fatal $True
