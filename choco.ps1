@@ -58,6 +58,9 @@ function print_init {
   $suffix = If ($count -gt 1) {"s"} Else {""}
   Write-Output "Going to $mode $count package${suffix}..."
 }
+function print_exit_code {
+  Write-Output "Exit Code: $LastExitCode"
+}
 function process_pkgs {
   foreach ($pkg in $pkgs) {
     if (-not (Test-Path $pkg -PathType Container)) {
@@ -79,12 +82,14 @@ choco pack
 ==========
 "@
       choco pack
+      print_exit_code
       Write-Output "----------"
       Write-Output @"
 choco install
 =============
 "@
       choco install $pkg -s . -my
+      print_exit_code
       Write-Output "-------------"
     } else {
       Write-Output @"
@@ -92,6 +97,7 @@ choco uninstall
 ===============
 "@
       choco uninstall $pkg -s . -my
+      print_exit_code
       Write-Output "---------------"
     }
     Write-Output "Restoring current working directory..."
