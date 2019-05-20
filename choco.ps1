@@ -70,7 +70,7 @@ function process_pkgs {
     Write-Output $pkg.ToUpper()
     $bar = "*" * $pkg.Length
     Write-Output $bar
-    $pwd = pwd
+    $pwd_save = $pwd
     Write-Output "Changing current working directory..."
     cd $pkg 2>$null
     if ($? -eq $False) {
@@ -101,9 +101,9 @@ choco uninstall
       Write-Output "---------------"
     }
     Write-Output "Restoring current working directory..."
-    cd $pwd 2>$null
+    cd $pwd_save 2>$null
     if ($? -eq $False) {
-      warn -msg "cannot cd to '$pwd'" -fatal $True
+      warn -msg "cannot cd to '$pwd_save'" -fatal $True
     }
   }
 }
