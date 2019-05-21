@@ -67,9 +67,12 @@ function process_pkgs {
       warn -msg "'$pkg' is not a directory" -fatal $False
       continue
     }
-    Write-Output $pkg.ToUpper()
     $bar = "*" * $pkg.Length
-    Write-Output $bar
+    Write-Output @"
+$bar
+$($pkg.ToUpper())
+$bar
+"@
     $pwd_save = $pwd
     Write-Output "Changing current working directory..."
     cd $pkg 2>$null
