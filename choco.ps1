@@ -110,6 +110,11 @@ choco uninstall
     }
   }
 }
+if ($env:Choco_Clear -ne $False -and
+    $env:Choco_Clear -ne $True
+) {
+  warn -msg '$env:Choco_Clear must be either $True or $False' -fatal $True
+}
 if ($env:Choco_Clear -eq $True) {
   Clear-Host
 }
