@@ -46,7 +46,11 @@ function print_box {
 function print_state {
   Param([string]$var,[string]$val)
   $state = "$var = "
-  $state += If ($val -eq $True) {'$True'} Else {'$False'}
+  switch ($val) {
+    $True  { $state += '$True';  Break }
+    $False { $state += '$False'; Break }
+    $null  {                     Break }
+  }
   Write-Output $state
 }
 function print_init {
@@ -110,8 +114,8 @@ choco uninstall
     }
   }
 }
-if ($env:Choco_Clear -ne $False -and
-    $env:Choco_Clear -ne $True
+if (($env:Choco_Clear -ne $null) -and
+    ($env:Choco_Clear -ne $False -and $env:Choco_Clear -ne $True)
 ) {
   warn -msg '$env:Choco_Clear must be either $True or $False' -fatal $True
 }
