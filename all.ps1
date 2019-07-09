@@ -11,7 +11,13 @@ Wrapper script for installing/uninstalling all chocolatey packages.
 
 .\all.ps1 uninstall
 #>
+#-----------------#
+# START of Config #
+#-----------------#
 $Exclude_dir_prefix = '^\!' # exclude directories by prefix (regex)
+#---------------#
+# END of Config #
+#---------------#
 if ($args.Count -gt 1) {
   Write-Output "$($MyInvocation.MyCommand.Name): single mode argument only"
   exit 1
